@@ -1,10 +1,8 @@
 const text = document.querySelector(".text");
 const button = document.querySelector(".button");
-const copyIcon = document.querySelector(".copy-icon");
 
-copyIcon.addEventListener("click", () => {
-    navigator.clipboard.writeText(text.textContent);
-})
+const copyToClipboard = document.querySelector(".copy-to-clipboard");
+const copyButton = document.querySelector(".copy-to-clipboard p");
 
 let isListening = false;
 
@@ -44,7 +42,15 @@ button.addEventListener("click", (event) => {
     recognition.stop();
   } else {
     recognition.start();
+    text.textContent = "";
     text.style.color = "#fff";
   }
 });
 
+copyToClipboard.addEventListener("click", () => {
+  navigator.clipboard.writeText(text.textContent);
+  copyButton.textContent = "Copied!";
+  setTimeout(() => {
+    copyButton.textContent = '';
+  }, 2000);
+});
